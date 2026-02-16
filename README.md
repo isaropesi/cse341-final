@@ -95,26 +95,5 @@ npm start
 ### Tasks
 - title, description, projectId, assigneeId, priority, status, dueDate
 
-## Week 05 Deliverables
-- [x] Node.js project structure (MVC)
-- [x] MongoDB Atlas connection
-- [x] Two collections with full CRUD
-- [x] Error handling on all routes
-- [x] Data validation
-- [x] Swagger documentation at `/api-docs`
-- [x] Deployed to Render
-
-## Individual Contributions
-
-### Isabella Silva
-1. Created Node.js project structure and MVC architecture
-2. Implemented Project collection CRUD operations
-3. Set up Render deployment configuration
-
-### Nyasha Chimutapira
-1. Configured MongoDB Atlas and Mongoose connection
-2. Implemented Task collection CRUD operations
-3. Created comprehensive Swagger API documentation
-
 ## License
 ISC
