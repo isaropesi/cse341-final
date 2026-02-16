@@ -28,13 +28,7 @@ const projectSchema = new mongoose.Schema({
         required: [true, 'Start date is required']
     },
     endDate: {
-        type: Date,
-        validate: {
-            validator: function (value) {
-                return !value || value >= this.startDate;
-            },
-            message: 'End date must be after start date'
-        }
+        type: Date
     },
     status: {
         type: String,
