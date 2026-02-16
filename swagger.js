@@ -30,6 +30,14 @@ const options = {
             {
                 name: 'Tasks',
                 description: 'Task management endpoints'
+            },
+            {
+                name: 'Comments',
+                description: 'Comment management endpoints'
+            },
+            {
+                name: 'Users',
+                description: 'User management endpoints (OAuth)'
             }
         ]
     },

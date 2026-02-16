@@ -5,7 +5,9 @@ const Task = require('../models/Task');
 // @access  Public (will be protected with OAuth in Week 06)
 exports.getTasksByProject = async (req, res, next) => {
     try {
-        const tasks = await Task.find({ projectId: req.params.projectId });
+        const tasks = await Task.find({ projectId: req.params.projectId })
+            .populate('assigneeId', 'displayName image')
+            .populate('projectId', 'name');
 
         res.status(200).json({
             success: true,
@@ -22,7 +24,9 @@ exports.getTasksByProject = async (req, res, next) => {
 // @access  Public
 exports.getTaskById = async (req, res, next) => {
     try {
-        const task = await Task.findById(req.params.id);
+        const task = await Task.findById(req.params.id)
+            .populate('assigneeId', 'displayName image')
+            .populate('projectId', 'name');
 
         if (!task) {
             return res.status(404).json({
@@ -45,6 +49,11 @@ exports.getTaskById = async (req, res, next) => {
 // @access  Public (will be protected in Week 06)
 exports.createTask = async (req, res, next) => {
     try {
+        // Default assignee to creator if not specified
+        if (!req.body.assigneeId && req.user) {
+            req.body.assigneeId = req.user.id;
+        }
+
         const task = await Task.create(req.body);
 
         res.status(201).json({

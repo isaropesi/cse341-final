@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { ensureAuth } = require('../middleware/auth');
 const {
     getAllProjects,
     getProjectById,
@@ -100,7 +101,7 @@ router.get('/:id', getProjectById);
  *       400:
  *         description: Validation error
  */
-router.post('/', createProject);
+router.post('/', ensureAuth, createProject);
 
 /**
  * @swagger
@@ -125,8 +126,10 @@ router.post('/', createProject);
  *         description: Project updated successfully
  *       404:
  *         description: Project not found
+ *       401:
+ *         description: Unauthorized
  */
-router.put('/:id', updateProject);
+router.put('/:id', ensureAuth, updateProject);
 
 /**
  * @swagger
@@ -145,7 +148,9 @@ router.put('/:id', updateProject);
  *         description: Project deleted successfully
  *       404:
  *         description: Project not found
+ *       401:
+ *         description: Unauthorized
  */
-router.delete('/:id', deleteProject);
+router.delete('/:id', ensureAuth, deleteProject);
 
 module.exports = router;

@@ -5,7 +5,8 @@ const Project = require('../models/Project');
 // @access  Public (will be protected with OAuth in Week 06)
 exports.getAllProjects = async (req, res, next) => {
     try {
-        const projects = await Project.find();
+        const projects = await Project.find()
+            .populate('ownerId', 'displayName image');
 
         res.status(200).json({
             success: true,
@@ -22,7 +23,8 @@ exports.getAllProjects = async (req, res, next) => {
 // @access  Public
 exports.getProjectById = async (req, res, next) => {
     try {
-        const project = await Project.findById(req.params.id);
+        const project = await Project.findById(req.params.id)
+            .populate('ownerId', 'displayName image');
 
         if (!project) {
             return res.status(404).json({
@@ -45,6 +47,11 @@ exports.getProjectById = async (req, res, next) => {
 // @access  Public (will be protected in Week 06)
 exports.createProject = async (req, res, next) => {
     try {
+        // Add user to req.body
+        if (req.user) {
+            req.body.ownerId = req.user.id;
+        }
+
         const project = await Project.create(req.body);
 
         res.status(201).json({

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { ensureAuth } = require('../middleware/auth');
 const {
     getTasksByProject,
     getTaskById,
@@ -100,7 +101,7 @@ router.get('/:id', getTaskById);
  *       400:
  *         description: Validation error
  */
-router.post('/', createTask);
+router.post('/', ensureAuth, createTask);
 
 /**
  * @swagger
@@ -125,8 +126,10 @@ router.post('/', createTask);
  *         description: Task updated successfully
  *       404:
  *         description: Task not found
+ *       401:
+ *         description: Unauthorized
  */
-router.put('/:id', updateTask);
+router.put('/:id', ensureAuth, updateTask);
 
 /**
  * @swagger
@@ -145,7 +148,9 @@ router.put('/:id', updateTask);
  *         description: Task deleted successfully
  *       404:
  *         description: Task not found
+ *       401:
+ *         description: Unauthorized
  */
-router.delete('/:id', deleteTask);
+router.delete('/:id', ensureAuth, deleteTask);
 
 module.exports = router;
