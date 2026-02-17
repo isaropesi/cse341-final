@@ -74,3 +74,34 @@ exports.deleteComment = async (req, res, next) => {
         next(error);
     }
 };
+
+// @desc    Update a comment
+// @route   PUT /comments/:id
+// @access  Private (Owner only)
+exports.updateComment = async (req, res, next) => {
+    try {
+        let comment = await Comment.findById(req.params.id);
+
+        if (!comment) {
+            return res.status(404).json({ success: false, error: 'Comment not found' });
+        }
+
+        // Check ownership
+        if (comment.authorId.toString() !== req.user.id) {
+            return res.status(403).json({ success: false, error: 'Not authorized to update this comment' });
+        }
+
+        comment = await Comment.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
+        });
+
+        res.status(200).json({
+            success: true,
+            data: comment
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+

@@ -16,10 +16,20 @@ const userSchema = new mongoose.Schema({
     image: {
         type: String
     },
+    email: {
+        type: String
+    },
+    bio: {
+        type: String
+    },
+    location: {
+        type: String
+    },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
+
 
 module.exports = mongoose.model('User', userSchema);

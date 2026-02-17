@@ -87,4 +87,34 @@ router.post('/', ensureAuth, commentController.addComment);
  */
 router.delete('/:id', ensureAuth, commentController.deleteComment);
 
+/**
+ * @swagger
+ * /comments/{id}:
+ *   put:
+ *     summary: Update a comment (Login Required)
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Comment updated
+ *       403:
+ *         description: Not authorized
+ */
+router.put('/:id', ensureAuth, commentController.updateComment);
+
+
 module.exports = router;

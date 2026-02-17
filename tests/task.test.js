@@ -21,4 +21,12 @@ describe('GET /tasks/project/:projectId', () => {
         // Should be an array
         expect(Array.isArray(res.body.data)).toBe(true);
     });
+    describe('GET /tasks/:id', () => {
+        it('should return a 404 for a non-existent task', async () => {
+            const fakeId = new mongoose.Types.ObjectId();
+            const res = await request(app).get(`/tasks/${fakeId}`);
+            expect(res.statusCode).toBe(404);
+        });
+    });
 });
+
