@@ -57,6 +57,7 @@ app.use('/auth', require('./routes/auth'));
 app.use('/projects', require('./routes/projectRoutes'));
 app.use('/tasks', require('./routes/taskRoutes'));
 app.use('/comments', require('./routes/commentRoutes'));
+app.use('/users', require('./routes/userRoutes'));
 
 // Root route
 app.get('/', (req, res) => {
